@@ -66,7 +66,7 @@ def login():
 		if user is None:
 			error = "Email no registrat."
 		elif not check_password_hash(user['password'], password):
-			error = "Contrassenya incorrecte."
+			error = "Contrasenya incorrecte."
 
 		if error is None:
 			session.clear()
