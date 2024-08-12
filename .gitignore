@@ -1,0 +1,5 @@
+instance/
+tests/
+
+*.swp
+Pipfile.lock

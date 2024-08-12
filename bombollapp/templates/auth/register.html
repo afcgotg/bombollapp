@@ -1,0 +1,29 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>{% block title %}Registrar-se{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="POST">
+		<label for="email">Email</label>
+		<input name="email" id="email" required>
+
+		<label for="password">Contrasenya</label>
+		<input type="password" name="password" id="password" required>
+
+		<label for="first_name">Nom</label>
+		<input name="first_name" id="first_name">
+
+		<label for="last_name">Cognom(s)</label>
+		<input name="last_name" id="last_name">
+
+		<label for="phone">Telèfon</label>
+		<input name="phone" id="phone">
+
+		<label for="addres">Direcció</label>
+		<input name="addres" id="addres">
+
+		<input type="submit" value="Registrar-se">
+	</form>
+{% endblock %}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="cat">
+	<head>
+		<title>{% block title %}{% endblock %} | Can Bombolla</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+		<h1>Can Bombolla</h1>
+		<nav>
+			<ul>
+				<li><a href="{{ url_for('home') }}">Inici</a>
+				{#
+				<li><a href="{{ url_for('shop.catalogue') }}">Catàleg</a>
+				<li><a href="{{ url_for('about') }}">Sobre nosaltres</a>
+				#}
+				{% if g.user %}
+					<li><span>{{ g.user['first_name'] }}{{ g.user['last_name'] }}</span>
+					<li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a>
+				{% else %}
+					<li><a href="{{ url_for('auth.register') }}">Registrar-se</a>
+					<li><a href="{{ url_for('auth.login') }}">Iniciar sessió</a>
+				{% endif %}			
+			</ul>
+		</nav>
+		<section class="content">
+			<header>
+				{% block header %}{% endblock %}
+			</header>
+			{% for message in get_flashed_messages() %}
+				<div class="flash">{{ message }}</div>
+			{% endfor %}
+			<main>
+				{% block content %}{% endblock %}
+			</main>
+	</body>
+</html>
