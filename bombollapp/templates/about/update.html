@@ -1,0 +1,22 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>{% block title %}Sobre nosaltres{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<header>
+		<h1>Sobre nosaltres</h1>
+	</header>
+	<form method="POST">
+		<input name="description" id="description" value="{{ info['description'] }}">
+
+		<label for="phone">Telèfon</label>
+		<input name="phone" id="phone" value="{{ info['phone'] }}">
+		
+		<label for="addres">Direcció</label>
+		<input name="addres" id="addres" value="{{ info['addres'] }}">
+
+		<input type="submit" value="Actualitzar">
+	</form>
+{% endblock %}

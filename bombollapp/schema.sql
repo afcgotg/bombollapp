@@ -20,9 +20,10 @@ CREATE TABLE admin(
 
 DROP TABLE IF EXISTS about;
 CREATE TABLE about(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
 	description TEXT,
 	phone TEXT,
-	addres TEX
+	addres TEXT
 );
 INSERT INTO about (description, phone, addres) values ("", "", "")
 

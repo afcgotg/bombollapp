@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>{% block title %}Sobre nosaltres{% endblock %}</h1>
+	{% if g.admin %}
+		<a class="action" href="{{ url_for('about.update') }}">Editar</a>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<article class="about">
+		<header>
+			<h1>Sobre nosaltres</h1>
+		</header>
+		<p class="body">{{ info['description'] }}</p>
+		<ul>
+			<li>Telèfon: {{ info['phone'] }}
+			<li>Direcció: {{ info['addres'] }}
+		</ul>
+	</article>
+{% endblock %}

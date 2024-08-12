@@ -10,7 +10,7 @@
 			<ul>
 				<li><a href="{{ url_for('home') }}">Inici</a>
 				<li><a href="">Catàleg</a>
-				<li><a href="">Sobre nosaltres</a>
+				<li><a href="{{ url_for('about.about') }}">Sobre nosaltres</a>
 				{% if g.user %}
 					<li><span>{{ g.user['first_name'] }}{{ g.user['last_name'] }}</span>
 					<li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a>
