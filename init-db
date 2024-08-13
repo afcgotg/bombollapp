@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pipenv run flask --app bombollapp init-db
+pipenv run flask --app bombollapp create-admin admin 0000

@@ -9,7 +9,7 @@
 		<h1>Sobre nosaltres</h1>
 	</header>
 	<form method="POST">
-		<input name="description" id="description" value="{{ info['description'] }}">
+		<textarea name="description" id="description">{{ info['description'] }}</textarea>
 
 		<label for="phone">Telèfon</label>
 		<input name="phone" id="phone" value="{{ info['phone'] }}">

@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template
 
-from . import db, auth, admin, about
+from . import db, auth, admin, about, blog
 
 
 def create_app(test_config=None):
@@ -31,5 +31,6 @@ def create_app(test_config=None):
 	app.register_blueprint(auth.bp)
 	app.register_blueprint(admin.bp)
 	app.register_blueprint(about.bp)
+	app.register_blueprint(blog.bp)
 
 	return app

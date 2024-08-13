@@ -25,5 +25,12 @@ CREATE TABLE about(
 	phone TEXT,
 	addres TEXT
 );
-INSERT INTO about (description, phone, addres) values ("", "", "")
+INSERT INTO about (description, phone, addres) values ("", "", "");
 
+DROP TABLE IF EXISTS post;
+CREATE TABLE post(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	title TEXT NOT NULL,
+	body TEXT NOT NULL,
+	created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

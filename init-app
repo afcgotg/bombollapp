@@ -1,0 +1,3 @@
+#!/bin/bash
+
+pipenv run flask --app bombollapp run --debug

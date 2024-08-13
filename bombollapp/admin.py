@@ -52,9 +52,9 @@ def load_logged_in_admin():
 @bp.route('/logout')
 def logout():
 	session.clear()
-	return redirect(url_for('admin.panel'))
+	return redirect(url_for('home'))
 
-def loguin_required(view):
+def admin_login_required(view):
 	@functools.wraps(view)
 	def wrapped_view(**kwargs):
 		if g.admin is None:
