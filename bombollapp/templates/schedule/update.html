@@ -1,0 +1,21 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>{% block title %}Editar event{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+		<label for="title">Tìtol</label>
+		<input name="title" id="title" value="{{ event['title'] }}" required>
+
+		<textarea name="description" id="description">{{ event['description'] }}</textarea>
+		
+		<input type="datetime-local" name="date" id="date" value="{{ event['date'] }}"  required>
+
+		<label for="size">Places disponibles</label>
+		<input name="size" id="size" value="{{ event['size'] }}">
+
+		<input type="submit" value="Modificar event">
+	</form>
+{% endblock %}

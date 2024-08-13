@@ -27,6 +27,7 @@ CREATE TABLE about(
 );
 INSERT INTO about (description, phone, addres) values ("", "", "");
 
+
 DROP TABLE IF EXISTS post;
 CREATE TABLE post(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,3 +35,21 @@ CREATE TABLE post(
 	body TEXT NOT NULL,
 	created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+
+DROP TABLE IF EXISTS event;
+CREATE TABLE event(
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	title TEXT NOT NULL,
+	description TEXT NOT NULL,
+	date DATETIME NOT NULL,
+	size INTEGER
+);
+
+DROP TABLE IF EXISTS event_user;
+CREATE TABLE event_user(
+	event_id INTEGER REFERENCES event (id),
+	user_id INTEGER REFERENCES user (id),
+	PRIMARY KEY (event_id, user_id)
+);
+

@@ -96,7 +96,7 @@ def logout():
 	return redirect(url_for('home'))
 
 
-def loguin_required(view):
+def user_login_required(view):
 	@functools.wraps(view)
 	def wrapped_view(**kwargs):
 		if g.user is None:
