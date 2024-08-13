@@ -3,3 +3,6 @@ tests/
 
 *.swp
 Pipfile.lock
+
+init-app
+init-db
