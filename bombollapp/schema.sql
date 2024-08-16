@@ -43,7 +43,8 @@ CREATE TABLE event(
 	title TEXT NOT NULL,
 	description TEXT NOT NULL,
 	date DATETIME NOT NULL,
-	size INTEGER
+	size INTEGER,
+	current INTEGER DEFAULT 0
 );
 
 DROP TABLE IF EXISTS event_user;

@@ -14,9 +14,17 @@ bp = Blueprint('schedule', __name__, url_prefix='/schedule')
 def index():
 	db = get_db()
 	events = db.execute(
-		'SELECT e.id, title, description, date, size FROM event e ORDER BY date DESC'
+		'SELECT e.id, title, description, date, size, current FROM event e ORDER BY date ASC'
 	).fetchall()
-	return render_template('schedule/index.html', events=events)
+
+	events_user = None
+	if g.user:
+		events_user = db.execute(
+			'SELECT eu.event_id FROM event_user eu WHERE eu.user_id = ?',
+			(g.user['id'],)
+		).fetchall()
+		events_user = [e['event_id'] for e in events_user]	
+	return render_template('schedule/index.html', events=events, events_user=events_user)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -52,7 +60,7 @@ def create():
 
 def get_event(id):
 	event = get_db().execute(
-		'SELECT e.id, title, description, date, size FROM event e'
+		'SELECT e.id, title, description, date, size, current FROM event e'
 		' WHERE e.id = ?',
 		(id,)
 	).fetchone()
@@ -109,23 +117,56 @@ def delete(id):
 	return redirect(url_for('schedule.index'))
 
 
-@bp.route('/adduser/<int:event_id>/<int:user_id>', methods=('POST',))
+@bp.route('/adduser/<int:event_id>', methods=('POST',))
 @user_login_required
-def adduser(event_id, user_id):
-	db.get_db().execute(
-		'INSERT INTO event_user (event_id, user_id) VALUES (?, ?)',
-		(event_id, user_id)
-	)
-	db.commit()
+def adduser(event_id):
+	db = get_db()
+	try:
+		db.execute(
+			'INSERT INTO event_user (event_id, user_id) VALUES (?, ?)',
+			(event_id, g.user['id'])
+		)
+		db.execute(
+			'UPDATE event SET current = current + 1 WHERE id = ?',
+			(event_id,)
+		)
+		db.commit()
+
+	except db.IntegrityError:
+		pass
+
 	return redirect(url_for('schedule.index'))
 
 
-@bp.route('/removeuser/<int:event_id>/<int:user_id>', methods=('POST',))
+@bp.route('/removeuser/<int:event_id>', methods=('POST',))
 @user_login_required
-def removeuser(event_id, user_id):
-	db.get_db().execute(
+def removeuser(event_id):
+	db = get_db()
+	db.execute(
 		'DELETE FROM event_user WHERE (event_id, user_id) = (?, ?)',
-		(event_id, user_id)
+		(event_id, g.user['id'])
+	)
+	db.execute(
+		'UPDATE event SET current = current - 1 WHERE id = ?',
+		(event_id,)
 	)
 	db.commit()
 	return redirect(url_for('schedule.index'))
+
+
+@bp.route('/view/<int:event_id>', methods=('GET',))
+def view(event_id):
+	db = get_db()
+	event = get_event(event_id)
+	users_event = db.execute(
+		'SELECT u.first_name, u.last_name FROM event_user eu'
+		' INNER JOIN user u ON u.id = eu.user_id'
+		' WHERE eu.user_id = ?',
+		(event_id,)
+	).fetchall()
+	db.commit()
+
+	return 	render_template('schedule/view.html', event=event,
+		users_event=users_event)
+
+

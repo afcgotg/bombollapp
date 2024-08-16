@@ -22,6 +22,7 @@
 						<li><a href="{{ url_for('auth.login') }}">Iniciar sessió</a>
 					{% endif %}			
 				{% else %}
+					<li><span>Usuari administrador</span>
 					<li><a href="{{ url_for('admin.logout') }}">Tancar sessió</a>
 				{% endif %}
 			</ul>

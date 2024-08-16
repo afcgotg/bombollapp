@@ -12,7 +12,7 @@
 		<article class="event">
 			<header>
 				<div>
-					<h1>{{ event['title'] }}</h1>
+					<h1><a href="{{ url_for('schedule.view', event_id=event['id']) }}">{{ event['title'] }}</a></h1>
 					{#
 					<div class="about">{{ event['date'].strftime('%d/%m/%Y') }}</div>
 					#}
@@ -20,14 +20,23 @@
 				</div>
 			</header>
 			<p class="body">{{ event['description'] }}</p>
+			<p>{{ event['size']-event['current'] }} places disponibles.</p>
+
 			{% if g.admin %}
 				<a class="action" href="{{ url_for('schedule.update', id=event['id']) }}">Modificar</a>
 				<form action="{{ url_for('schedule.delete', id=event['id']) }}" method="post">
 					<input class="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja anul·lar el taller?');">
 				</form>
 			{% elif g.user %}
-				<a class="action" href="{{ url_for('schedule.adduser', event_id=event['id'], user_id=g.user['id']) }}">Reservar</a>
-				<a class="action" href="{{ url_for('schedule.removeuser', event_id=event['id'], user_id=g.user['id']) }}">Cancel·lar</a>
+				{% if events_user and event['id'] in events_user %}
+					<form action="{{ url_for('schedule.removeuser', event_id=event['id']) }}" method="post">
+						<input type="submit" value="Cancel·lar assistencia">
+					</form>
+				{% elif event['current'] < event['size'] %}
+					<form action="{{ url_for('schedule.adduser', event_id=event['id']) }}" method="post">
+						<input type="submit" value="Rervar plaça">
+					</form>
+				{% endif %}
 			{% endif %}
 		</article>
 		{% if not loop.last %}
