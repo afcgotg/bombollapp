@@ -40,7 +40,7 @@ def update():
 		db.commit()
 		return redirect(url_for('about.about'))
 
-	return render_template('about/update.html', info=info)
+	return render_template('about/form.html', info=info)
 
 
 

@@ -54,7 +54,7 @@ def update(id=None):
 			db.commit()
 			return redirect(url_for('blog.index'))
 
-	return render_template('blog/put.html', post=post)
+	return render_template('blog/form.html', post=post)
 
 
 def get_post(id):

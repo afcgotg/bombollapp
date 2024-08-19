@@ -1,0 +1,36 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>
+		{% block title %}
+			{% if event %}
+				Modificar event
+			{% else %}
+				Nou event
+			{% endif %}
+		{% endblock %}
+	</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+	    <label for="title">Tìtol</label>
+	    <input name="title" id="title" value="{{ event['title'] }}" required>
+	    
+		<label for="summary">Resum</label>
+	    <input name="summary" id="summary" value="{{ event['summary'] }}" required>
+	
+	    <textarea name="description" id="description">{{ event['description'] }}</textarea>
+
+	    <input type="datetime-local" name="date" id="date" value="{{ event['date'] }}"  required>
+
+    	<label for="size">Places disponibles</label>
+	    <input name="size" id="size" value="{{ event['size'] }}">
+
+    	{% if event %}
+	        <input type="submit" value="Modificar event">
+	    {% else %}
+	        <input type="submit" value="Crear event">
+	    {% endif %}
+	</form>
+{% endblock %}

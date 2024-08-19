@@ -1,0 +1,27 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>
+		{% block title %}
+			{% if post %}
+				Modificar post
+			{% else %}
+				Nou post
+			{% endif %}
+		{% endblock %}
+	</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+	    <label for="title">Títol</label>
+	    <input name="title" id="title" value="{{ post['title'] }}" required>
+	
+	    <textarea name="body" id="body">{{ post['body'] }}</textarea>
+	    {% if post %}
+	        <input type="submit" value="Actualitzar post">
+	    {% else %}
+	        <input type="submit" value="Crear post">
+	    {% endif %}
+	</form>
+{% endblock %}

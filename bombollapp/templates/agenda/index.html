@@ -9,7 +9,7 @@
 
 {% block content %}
 	{% for event in events %}
-		{% include 'agenda/event_layout.html' %}
+		{% include 'agenda/event.html' %}
 		{% if not loop.last %}
 			<hr>
 		{% endif %}

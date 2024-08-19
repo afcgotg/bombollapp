@@ -1,9 +1,39 @@
-{% extends 'base_layout.html' %}
+<article class="event">
+	<header>
+    	<div>
+        	<h1><a href="{{ url_for('agenda.view', event_id=event['id']) }}">{{ event['title'] }}</a></h1>
+            {#
+            <div class="about">{{ event['date'].strftime('%d/%m/%Y') }}</div>
+            #}
+            <div class="about">{{ event['date'] }}</div>
+        </div>
+    </header>
+   	<p class="summary">{{ event['summary'] }}</p>
+	<p class="body">{{ event['description'] }}</p>
+	<p>{{ event['size']-event['current'] }} places disponibles.</p>
 
-{% block header %}
-	<h1>{% block title %}{{ event['title'] }}{% endblock %}</h1>
-{% endblock %}
-
-{% block content %}
-	{% include 'agenda/event_layout.html' %}
-{% endblock %}
+    {% if g.admin %}
+		{% if users_event %}
+		<h3>Participants</h3>
+		<ul>
+			{% for usr in users_event %}
+				<li>{{ usr['first_name'] }} {{ usr['last_name'] }}
+			{% endfor %}
+		</ul>
+		{% endif %}
+    	<a class="action" href="{{ url_for('agenda.update', id=event['id']) }}">Modificar</a>
+        <form action="{{ url_for('agenda.delete', id=event['id']) }}" method="post">
+         	<input class="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja anul·lar el taller?');">
+        </form>
+    {% elif g.user %}
+	    {% if events_user and event['id'] in events_user %}
+    	   	<form action="{{ url_for('agenda.removeuser', event_id=event['id']) }}" method="post">
+        	   	<input type="submit" value="Cancel·lar assistencia">
+	        </form>
+    	{% elif event['current'] < event['size'] %}
+       		<form action="{{ url_for('agenda.adduser', event_id=event['id']) }}" method="post">
+     			<input type="submit" value="Rervar plaça">
+		    </form>
+    	{% endif %}
+	{% endif %}
+</article>

@@ -14,11 +14,14 @@ bp = Blueprint('agenda', __name__, url_prefix='/agenda')
 def index():
 	db = get_db()
 	events = db.execute(
-		'SELECT e.id, title, description, date, size, current FROM event e ORDER BY date ASC'
+		'SELECT e.id, title, summary, description, date, size, current '
+		'FROM event e ORDER BY date ASC'
 	).fetchall()
 	events_user = get_events_user()
-	return render_template('agenda/index.html', events=events, events_user=events_user)
-
+	return render_template('agenda/index.html',
+		events=events,
+		events_user=events_user
+	)
 
 @bp.route('/create', methods=('GET', 'POST'))
 @bp.route('/update/<int:id>', methods=('GET', 'POST'))
@@ -30,6 +33,7 @@ def update(id=None):
 	
 	if request.method == 'POST':
 		title = request.form['title']
+		summary = request.form['summary']
 		description = request.form['description']
 		date = request.form['date']
 		size = request.form['size']
@@ -48,20 +52,21 @@ def update(id=None):
 			db = get_db()
 			if not id:
 				db.execute(
-					'INSERT INTO event (title, description, date, size) VALUES'
-					' (?, ?, ?, ?)',
-					(title, description, date, size)
+					'INSERT INTO event (title, summary, description, date, '
+					'size) VALUES'
+					' (?, ?, ?, ?, ?)',
+					(title, summary, description, date, size)
 				)
 			else:
 				db.execute(
-					'UPDATE event SET title = ?, description = ?, date = ?,'
-					' size = ? WHERE id = ?',
-					(title, description, date, size, id)
+					'UPDATE event SET title = ?, summary= ?, description = ?, '
+					'date = ?, size = ? WHERE id = ?',
+					(title, summary, description, date, size, id)
 				)
 			db.commit()
 			return redirect(url_for('agenda.index'))
 
-	return render_template('agenda/put.html', event=event)
+	return render_template('agenda/form.html', event=event)
 
 
 @bp.route('/delete/<int:id>', methods=('POST',))
@@ -69,7 +74,7 @@ def update(id=None):
 def delete(id):
 	get_event(id)
 	db = get_db()
-	db.execute('DELETE FROM event_user WHERE event_id = ?', (id,))
+	db.execute('PRAGMA foreign_keys = ON')
 	db.execute('DELETE FROM event WHERE id = ?', (id,))
 	db.commit()
 	return redirect(url_for('agenda.index'))
@@ -115,7 +120,7 @@ def removeuser(event_id):
 @bp.route('/view/<int:event_id>', methods=('GET',))
 def view(event_id):
 	db = get_db()
-	event = get_event(event_id)
+	event = session.get('event')
 	users_event = db.execute(
 		'SELECT u.first_name, u.last_name FROM event_user eu'
 		' INNER JOIN user u ON u.id = eu.user_id'
@@ -125,13 +130,13 @@ def view(event_id):
 	db.commit()
 	events_user = get_events_user()
 
-	return 	render_template('agenda/event.html', event=event,
+	return 	render_template('agenda/view.html', event=event,
 		users_event=users_event, events_user=events_user)
 
 
 def get_event(id):
 	event = get_db().execute(
-		'SELECT e.id, title, description, date, size, current FROM event e'
+		'SELECT e.id, title, summary, description, date, size, current FROM event e'
 		' WHERE e.id = ?',
 		(id,)
 	).fetchone()
