@@ -8,7 +8,7 @@
 	{% for product in products %}
 		<article class="product">
 			<header>
-				<h1><a href="{{ url_for('shop.view', reference=product['reference']) }}">{{ product['name'] }}</a></h1>
+				<h1><a href="{{ url_for('shop.view', id=product['id']) }}">{{ product['name'] }}</a></h1>
 			</header>
 			<p>
 				{{ product['price'] }} &euro;{% if product['in_bulk'] %}/L{% endif %}

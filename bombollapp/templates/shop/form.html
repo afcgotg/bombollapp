@@ -1,0 +1,36 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>{% block title %}Afegir producte{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<form method="post">
+		<label for="reference">Referència</label>
+		<input name="reference" id="reference" value="{{ product['reference'] }}" required>
+
+		<label for="name">Nom</label>
+		<input name="name" id="name" value="{{ product['name'] }}" required>
+
+		<textarea name="description" id="description">{{ product['description'] }}</textarea>
+
+		<label for="price">Preu</label>
+		<input name="price" id="price" value="{{ product['price'] }}">
+
+		<label for="in_bulk">A granel</label>
+		{% if product['in_bulk'] %}
+			<input type="checkbox" name="in_bulk" id="in_bulk" value="{{ product['in_bulk'] }}" checked>
+		{% else %}
+			<input type="checkbox" name="in_bulk" id="in_bulk" value="{{ product['in_bulk'] }}">
+		{% endif %}
+
+		<label for="stock">Stock</label>
+		<input name="stock" id="stock" value="{{ product['stock'] }}">
+		{% if product %}
+			<input type="submit" value="Actualitzar producte">
+		{% else %}
+			<input type="submit" value="Afegir producte">
+		{% endif %}
+	</form>
+{% endblock %}
+

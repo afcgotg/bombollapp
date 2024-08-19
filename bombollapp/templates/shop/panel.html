@@ -1,0 +1,38 @@
+{% extends 'base_layout.html' %}
+
+{% block header %}
+	<h1>{% block title %}Panell de control del catàleg{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+	<table>
+		<th>Referència</th>
+		<th>Producte</th>
+		<th>Preu</th>
+		<th>Stock</th>
+		<th>A granel</th>
+		<th>Accions</th>
+		{% for product in products %}
+			<tr>
+				<td>{{ product['reference'] }}</td>
+				<td>{{ product['name'] }}</td>
+				<td>{{ product['price'] }}</td>
+				<td>{{ product['stock'] }}</td>
+				<td>
+				{% if product['in_bulk'] %}
+					<input type="checkbox" style="pointer-events: none;" checked>
+				{% else %}
+					<input type="checkbox" style="pointer-events: none;">
+				{% endif %}
+				</td>
+				<td>
+					<a href="{{ url_for('shop.upsert', id=product['id']) }}">Editar</a>
+					<form action="{{ url_for('shop.delete', id=product['id']) }}" method="post">
+						<input clas="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja eliminar aquest producte?');">
+					</form>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	<a href="{{ url_for('shop.upsert') }}">Afegir producte</a>
+{% endblock %}

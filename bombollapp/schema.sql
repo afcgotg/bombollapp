@@ -59,11 +59,12 @@ CREATE TABLE event_user(
 
 DROP TABLE IF EXISTS product;
 CREATE TABLE product(
-	reference TEXT PRIMARY KEY,
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	reference TEXT UNIQUE NOT NULL,
 	name TEXT NOT NULL,
 	description TEXT,
 	price FLOAT,
-	in_bulk BOOLEAN DEFAULT false,
+	in_bulk BOOLEAN DEFAULT 0,
 	stock INTEGER DEFAULT 0
 );
 
@@ -75,8 +76,8 @@ CREATE TABLE label(
 
 DROP TABLE IF EXISTS product_label;
 CREATE TABLE product_label(
-	product_reference TEXT,
+	product_id INTEGER,
 	label_id INTEGER,
-	FOREIGN KEY (product_reference) REFERENCES product(reference) ON DELETE CASCADE,
+	FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
 	FOREIGN KEY (label_id) REFERENCES label(id) ON DELETE CASCADE
 );
