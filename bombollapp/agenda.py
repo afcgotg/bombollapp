@@ -61,7 +61,7 @@ def update(id=None):
 			db.commit()
 			return redirect(url_for('agenda.index'))
 
-	return render_template('agenda/create_update.html', event=event)
+	return render_template('agenda/put.html', event=event)
 
 
 @bp.route('/delete/<int:id>', methods=('POST',))
@@ -125,7 +125,7 @@ def view(event_id):
 	db.commit()
 	events_user = get_events_user()
 
-	return 	render_template('agenda/view.html', event=event,
+	return 	render_template('agenda/event.html', event=event,
 		users_event=users_event, events_user=events_user)
 
 

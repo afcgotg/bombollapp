@@ -20,8 +20,13 @@ def index():
 
 
 @bp.route('/create', methods=('GET', 'POST'))
+@bp.route('/update/<int:id>', methods=('GET', 'POST'))
 @admin_login_required
-def create():
+def update(id=None):
+	post = None
+	if id:
+		post = get_post(id)
+
 	if request.method == 'POST':
 		title = request.form['title']
 		body = request.form['body']
@@ -34,14 +39,22 @@ def create():
 			flash(error)
 		else:
 			db = get_db()
-			db.execute(
-				'INSERT INTO post (title, body) VALUES (?, ?)',
-				(title, body)
-			)
+			if not id:
+				db.execute(
+					'INSERT INTO post (title, body) VALUES (?, ?)',
+					(title, body)
+				)
+			else:
+				db.execute(
+					'UPDATE post SET title = ?, body = ?'
+					' WHERE id = ?',
+					(title, body, id)
+				)			
+		
 			db.commit()
 			return redirect(url_for('blog.index'))
 
-	return render_template('blog/create.html')
+	return render_template('blog/put.html', post=post)
 
 
 def get_post(id):
@@ -54,33 +67,6 @@ def get_post(id):
 		abort(404, f"El post amb id {id} no existeix.")
 
 	return post
-
-@bp.route('/update/<int:id>', methods=('GET', 'POST'))
-@admin_login_required
-def update(id):
-	post = get_post(id)
-
-	if request.method == 'POST':
-		title = request.form['title']
-		body = request.form['body']
-		error = None
-
-		if not title:
-			error = "Títol requerit."
-
-		if error is not None:
-			flash(error)
-		else:
-			db = get_db()
-			db.execute(
-				'UPDATE post SET title = ?, body = ?'
-				' WHERE id = ?',
-				(title, body, id)
-			)
-			db.commit()
-			return redirect(url_for('blog.index'))
-
-	return render_template('blog/update.html', post=post)
 
 
 @bp.route('/delete/<int:id>', methods=('POST',))
