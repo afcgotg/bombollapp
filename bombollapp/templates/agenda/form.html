@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>
+	<h2>
 		{% block title %}
 			{% if event %}
 				Modificar event
@@ -9,30 +9,38 @@
 				Nou event
 			{% endif %}
 		{% endblock %}
-	</h1>
+	</h2>
 {% endblock %}
 
 {% block content %}
 	<form method="post">
-		<div class="row-form">
-		    <label for="title">Tìtol</label>
-		    <input name="title" id="title" style="width:350px" value="{{ event['title'] }}" required>
-	    </div>
-		<div class="row-form">
-			<label for="summary">Resum</label>
-		    <input name="summary" id="summary" style="width:90%" value="{{ event['summary'] }}" required>
-	    </div>
-	
-	    <textarea name="description" id="description">{{ event['description'] }}</textarea>
-
-		<div class="row-form">
-	    	<input type="datetime-local" name="date" id="date" value="{{ event['date'] }}"  required>
-
-	    	<label for="size">Places disponibles</label>
-		    <input type="number" name="size" id="size" style="width:25px" value="{{ event['size'] }}">
+		<div class="row">
+			<div class="field">
+			    <label for="title">Tìtol</label>
+			    <input name="title" id="title" style="width:350px" value="{{ event['title'] }}" required>
+			</div>
+		</div>
+		<div class="row">
+			<div class="field" style="width:100%">
+				<label for="summary">Resum</label>
+			    <input name="summary" id="summary" value="{{ event['summary'] }}" style="margin:0;width:741px">
+			</div>
+		</div>
+		<div class="row">
+		    <textarea name="description" id="description">{{ event['description'] }}</textarea>
+		</div>
+		<div class="row">
+			<div class="field">
+		    	<label for="date">Data</label>
+		    	<input type="datetime-local" name="date" id="date" value="{{ event['date'] }}">
+			</div>
+			<div class="field">
+		    	<label for="size">Places disponibles</label>
+			    <input type="number" name="size" id="size" style="width:25px" value="{{ event['size'] }}">
+			</div>
 		</div>
 		
-		<div class="row-form">
+		<div class="actions">
     		{% if event %}
 		        <input type="submit" value="Modificar event">
 		    {% else %}

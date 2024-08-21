@@ -41,7 +41,3 @@ def update():
 		return redirect(url_for('about.about'))
 
 	return render_template('about/form.html', info=info)
-
-
-
-

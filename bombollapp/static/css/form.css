@@ -1,0 +1,61 @@
+section.content header h2 {
+	font-size: 24pt;
+}
+
+section.content header h3 {
+	font-size: 16pt;
+}
+
+section.content main form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 800px;
+}
+
+div.row {
+	display: flex;
+	justify-content: flex-start;
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+div.field label{
+	margin-right: 10px;
+}
+
+div.field input{
+	margin-right: 20px;
+}
+
+div.row textarea {
+	width: 100%;
+	resize: none;
+	height: 60px;
+}
+
+div.actions {
+	display: flex;
+	justify-content: center;
+}
+
+div.actions input[type="submit"] {
+	color: white;
+	background-color: var(--primary-color);
+	border: none;
+	padding: 10px;
+}
+
+div.actions input[type="submit"]:hover {
+	background-color: white;
+	color: var(--primary-color);
+	padding: 10px;
+	border: 1px solid grey;
+}
+
+div.flash {
+	padding: 10px 0 10px;
+	color: red;
+	font-style: italic;	
+}

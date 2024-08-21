@@ -1,36 +1,53 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>{% block title %}Afegir producte{% endblock %}</h1>
+	<h3>{% block title %}Afegir producte{% endblock %}</h3>
 {% endblock %}
 
 {% block content %}
 	<form method="post">
-		<label for="reference">Referència</label>
-		<input name="reference" id="reference" value="{{ product['reference'] }}" required>
-
-		<label for="name">Nom</label>
-		<input name="name" id="name" value="{{ product['name'] }}" required>
-
-		<textarea name="description" id="description">{{ product['description'] }}</textarea>
-
-		<label for="price">Preu</label>
-		<input name="price" id="price" value="{{ product['price'] }}">
-
-		<label for="in_bulk">A granel</label>
-		{% if product['in_bulk'] %}
-			<input type="checkbox" name="in_bulk" id="in_bulk" value="{{ product['in_bulk'] }}" checked>
-		{% else %}
-			<input type="checkbox" name="in_bulk" id="in_bulk" value="{{ product['in_bulk'] }}">
-		{% endif %}
-
-		<label for="stock">Stock</label>
-		<input name="stock" id="stock" value="{{ product['stock'] }}">
-		{% if product %}
-			<input type="submit" value="Actualitzar producte">
-		{% else %}
-			<input type="submit" value="Afegir producte">
-		{% endif %}
+		<div class="row">
+			<div class="field">
+				<label for="reference">Referència</label>
+				<input name="reference" id="reference" value="{{ product['reference'] }}">
+			</div>
+			<div class="field">
+				<label for="name">Nom</label>
+				<input name="name" id="name" value="{{ product['name'] }}" style="width:300px">
+			</div>
+		</div>
+		<div class="row">
+			<textarea name="description" id="description">{{ product['description'] }}</textarea>
+		</div>
+		
+		<div class="row">
+			<div class="field">
+				<label for="in_bulk">A granel</label>
+				{% if product['in_bulk'] %}
+					<input type="checkbox" name="in_bulk" id="in_bulk" value="{{ product['in_bulk'] }}" checked>
+				{% else %}
+					<input type="checkbox" name="in_bulk" id="in_bulk" value="{{ product['in_bulk'] }}">
+				{% endif %}
+			</div>
+			<div class="field">
+				<label for="price">Preu</label>
+				<input name="price" id="price" value="{{ product['price'] }}" style="width:50px">
+			</div>
+			<div class="field">
+				<label for="stock">Stock</label>
+				<input name="stock" id="stock" value="{{ product['stock'] }}" style="width:50px">
+			</div>
+		</div>
+		{% for message in get_flashed_messages() %}
+			<div class="flash">{{ message }}</div>
+		{% endfor %}
+		<div class="actions">
+			{% if product %}
+				<input type="submit" value="Actualitzar producte">
+			{% else %}
+				<input type="submit" value="Afegir producte">
+			{% endif %}
+		</div>
 	</form>
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>
+	<h2>
 		{% block title %}
 			{% if post %}
 				Modificar post
@@ -9,19 +9,26 @@
 				Nou post
 			{% endif %}
 		{% endblock %}
-	</h1>
+	</h2>
 {% endblock %}
 
 {% block content %}
 	<form method="post">
-	    <label for="title">Títol</label>
-	    <input name="title" id="title" value="{{ post['title'] }}" required>
-	
-	    <textarea name="body" id="body">{{ post['body'] }}</textarea>
-	    {% if post %}
-	        <input type="submit" value="Actualitzar post">
-	    {% else %}
-	        <input type="submit" value="Crear post">
-	    {% endif %}
+		<div class="row">
+			<div class="field">
+			    <label for="title">Títol</label>
+			    <input name="title" id="title" value="{{ post['title'] }}" required>
+			</div>
+		</div>
+		<div class="row">	
+		    <textarea name="body" id="body">{{ post['body'] }}</textarea>
+		</div>
+		<div class="actions">
+		    {% if post %}
+		        <input type="submit" value="Actualitzar post">
+		    {% else %}
+		        <input type="submit" value="Crear post">
+		    {% endif %}
+		</div>
 	</form>
 {% endblock %}

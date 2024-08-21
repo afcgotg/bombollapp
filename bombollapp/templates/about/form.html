@@ -5,18 +5,23 @@
 {% endblock %}
 
 {% block content %}
-	<header>
-		<h1>Sobre nosaltres</h1>
-	</header>
 	<form method="POST">
-		<textarea name="description" id="description">{{ info['description'] }}</textarea>
-
-		<label for="phone">Telèfon</label>
-		<input name="phone" id="phone" value="{{ info['phone'] }}">
+		<div class="row">
+			<textarea name="description" id="description" style="height:200px">{{ info['description'] }}</textarea>
+		</div>
 		
-		<label for="addres">Direcció</label>
-		<input name="addres" id="addres" value="{{ info['addres'] }}">
-
-		<input type="submit" value="Actualitzar">
+		<div class="row">
+			<div class="field">
+				<label for="phone">Telèfon</label>
+				<input name="phone" id="phone" style="width:100px" value="{{ info['phone'] }}">
+			</div>
+			<div class="field">		
+				<label for="addres">Direcció</label>
+				<input name="addres" id="addres" style="width:60%" value="{{ info['addres'] }}">
+			</div>
+		</div>
+		<div class="actions">	
+			<input type="submit" style="padding:10px" value="Actualitzar">
+		</div>
 	</form>
 {% endblock %}

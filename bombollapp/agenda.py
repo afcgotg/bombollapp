@@ -32,7 +32,6 @@ def get_event_from_form():
 	event['size'] = request.form['size']
 
 	error = validate_data(event)
-	print(error)
 	return (event, error)
 	
 def validate_data(event):
@@ -47,10 +46,11 @@ def validate_data(event):
 		event['size'] = 0
 	try:	
 		event['size'] = int(event['size'])
-		if event['size'] < 0:
-			error = "El nombre de places ha de ser un valor positiu."
 	except ValueError:
 		error = "El nombre de places ha de ser un valor enter."
+	else:
+		if event['size'] < 0:
+			error = "El nombre de places ha de ser un valor positiu."
 
 	print(event['size'])
 	return error

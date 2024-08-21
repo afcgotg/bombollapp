@@ -2,40 +2,45 @@
 <html lang="cat">
 	<head>
 		<title>{% block title %}{% endblock %} | Can Bombolla</title>
-		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 	</head>
 	<body>
-		<h1>Can Bombolla</h1>
-		<nav>
+		{% if g.admin %}
+			<div class="admin-banner">
+				<p>Usuari adminsitrador</p>
+			</div>
+		{% endif %}
+		<h1 class="front">Can Bombolla</h1>
+		<ul class="auth">
+			{% if not g.admin %}
+				{% if g.user %}
+					<li><span>{{ g.user['first_name'] }} {{ g.user['last_name'] }}</span>
+					<li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a>
+				{% else %}
+					<li><a href="{{ url_for('auth.login') }}">Iniciar sessió</a>
+					<li><a href="{{ url_for('auth.register') }}">Registrar-se</a>
+				{% endif %}			
+			{% else %}
+				<li><a href="{{ url_for('shop.panel') }}">Panell de control</a>
+				<li><a href="{{ url_for('admin.logout') }}">Tancar sessió</a>
+			{% endif %}
+		</ul>
+		<nav class="menu">
 			<ul>
 				<li><a href="{{ url_for('home') }}">Inici</a>
 				<li><a href="{{ url_for('shop.index') }}">Catàleg</a>
 				<li><a href="{{ url_for('blog.index') }}">Blog</a>
 				<li><a href="{{ url_for('agenda.index') }}">Agenda</a>
 				<li><a href="{{ url_for('about.about') }}">Sobre nosaltres</a>
-				{% if not g.admin %}
-					{% if g.user %}
-						<li><span>{{ g.user['first_name'] }} {{ g.user['last_name'] }}</span>
-						<li><a href="{{ url_for('auth.logout') }}">Tancar sessió</a>
-					{% else %}
-						<li><a href="{{ url_for('auth.register') }}">Registrar-se</a>
-						<li><a href="{{ url_for('auth.login') }}">Iniciar sessió</a>
-					{% endif %}			
-				{% else %}
-					<li><span>Usuari administrador</span>
-					<li><a href="{{ url_for('admin.logout') }}">Tancar sessió</a>
-				{% endif %}
 			</ul>
 		</nav>
 		<section class="content">
 			<header>
 				{% block header %}{% endblock %}
 			</header>
-			{% for message in get_flashed_messages() %}
-				<div class="flash">{{ message }}</div>
-			{% endfor %}
 			<main>
 				{% block content %}{% endblock %}
 			</main>
+		</section>
 	</body>
 </html>

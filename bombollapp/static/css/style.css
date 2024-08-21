@@ -1,0 +1,36 @@
+@import url('base_layout.css');
+@import url('form.css');
+
+:root {
+	--primary-color: rgb(3,150,140);
+	--secondary-color: rgb(197,218,211);
+	--background-color: rgb(245,245,245);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	color: rgb(70,70,70);
+}
+
+
+a {
+	text-decoration: none;
+}
+
+html {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+body {
+	width: 1200px;
+	position: relative;
+}
+
+::selection {
+	background-color: var(--primary-color);
+	color: white;
+}

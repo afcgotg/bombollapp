@@ -25,7 +25,6 @@ CREATE TABLE about(
 	phone TEXT,
 	addres TEXT
 );
-INSERT INTO about (description, phone, addres) values ("", "", "");
 
 
 DROP TABLE IF EXISTS post;
