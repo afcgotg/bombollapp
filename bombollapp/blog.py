@@ -18,38 +18,66 @@ def index():
 	).fetchall()
 	return render_template('blog/index.html', posts=posts)
 
+def get_post_from_form():
+	post = {}
+	post['title'] = request.form['title']
+	post['body'] = request.form['body']
+
+	error = validate_data(post)
+
+	return (post, error)
+
+def validate_data(post):
+	error = None
+	if not post['title']:
+		error = "Títol requerit."
+	return error
+
+def query_format(post, id=None):
+	post_tuple = (post['title'], post['body'])
+	if id:
+		post_tuple = post_tuple + (id,)
+	return post_tuple
 
 @bp.route('/create', methods=('GET', 'POST'))
-@bp.route('/update/<int:id>', methods=('GET', 'POST'))
 @admin_login_required
-def update(id=None):
+def create():
 	post = None
-	if id:
-		post = get_post(id)
 
 	if request.method == 'POST':
-		title = request.form['title']
-		body = request.form['body']
-		error = None
-
-		if not title:
-			error = "Títol requerit."
+		post, error = get_post_from_form()
 
 		if error is not None:
 			flash(error)
 		else:
 			db = get_db()
-			if not id:
-				db.execute(
-					'INSERT INTO post (title, body) VALUES (?, ?)',
-					(title, body)
-				)
-			else:
-				db.execute(
-					'UPDATE post SET title = ?, body = ?'
-					' WHERE id = ?',
-					(title, body, id)
-				)			
+			db.execute(
+				'INSERT INTO post (title, body) VALUES (?, ?)',
+				query_format(post)
+			)
+			db.commit()
+			return redirect(url_for('blog.index'))
+
+	return render_template('blog/form.html', post=post)
+
+
+@bp.route('/update/<int:id>', methods=('GET', 'POST'))
+@admin_login_required
+def update(id=None):
+	post = get_post(id)
+
+	if request.method == 'POST':
+		post, error = get_post_from_form()
+
+		if error is not None:
+			flash(error)
+		else:
+			db = get_db()
+			db.execute(
+				'UPDATE post SET title = ?, body = ?'
+				' WHERE id = ?',
+				query_format(post, id)
+			)			
 		
 			db.commit()
 			return redirect(url_for('blog.index'))
