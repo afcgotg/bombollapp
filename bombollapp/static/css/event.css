@@ -1,0 +1,47 @@
+article.events {
+	width: 100%;
+}
+
+article.events div.event{
+	background-color: rgb(245,245,245);
+	padding: 20px;
+	margin-left: 150px;
+	margin-right: 150px;
+}
+
+article.events header {
+	text-align: left;
+	margin: 0;
+	padding: 0 0 20px;;
+}
+
+article.events header h3 {
+	font-size: 18pt;
+}
+
+div.about {
+	font-size: 12pt;i
+}
+
+p.summary {
+	font-style: italic;
+	margin-bottom: 10px;
+}
+
+p.description {
+	margin-bottom: 10px;
+}
+
+div.event div.actions {
+	align-items: center;
+}
+
+div.event div.actions form {
+	flex-direction: row;
+	justify-content: right;
+}
+
+div.actions p {
+	width:300px;
+}
+

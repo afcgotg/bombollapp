@@ -155,21 +155,21 @@ def removeuser(event_id):
 	return redirect(request.referrer)
 
 
-@bp.route('/view/<int:event_id>', methods=('GET',))
-def view(event_id):
+@bp.route('/view/<int:id>', methods=('GET',))
+def view(id):
+	event = get_event(id)
 	db = get_db()
-	event = session.get('event')
 	users_event = db.execute(
 		'SELECT u.first_name, u.last_name FROM event_user eu'
 		' INNER JOIN user u ON u.id = eu.user_id'
 		' WHERE eu.event_id = ?',
-		(event_id,)
+		(id,)
 	).fetchall()
 	db.commit()
 	events_user = get_events_user()
 
 	return 	render_template('agenda/view.html', event=event,
-		users_event=users_event, events_user=events_user)
+		users_event=users_event, events_user=events_user, id=id)
 
 
 def get_event(id):

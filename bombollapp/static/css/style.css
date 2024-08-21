@@ -1,6 +1,8 @@
 @import url('base_layout.css');
 @import url('form.css');
 
+@import url('event.css');
+
 :root {
 	--primary-color: rgb(3,150,140);
 	--secondary-color: rgb(197,218,211);
