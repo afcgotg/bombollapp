@@ -23,46 +23,84 @@ def index():
 		events_user=events_user
 	)
 
-@bp.route('/create', methods=('GET', 'POST'))
-@bp.route('/update/<int:id>', methods=('GET', 'POST'))
-@admin_login_required
-def update(id=None):
-	event = None
-	if id:
-		event = get_event(id)
+def get_event_from_form():
+	event = {}
+	event['title'] = request.form['title']
+	event['summary'] = request.form['summary']
+	event['description'] = request.form['description']
+	event['date'] = request.form['date']
+	event['size'] = request.form['size']
+
+	error = validate_data(event)
+	print(error)
+	return (event, error)
 	
+def validate_data(event):
+	error = None
+	if not event['title']:
+		error = "Títol requerit."
+	elif not event['description']:
+		error = "Descripció requerida."
+	elif not event['date']:
+		error = "Data requerida."
+	elif not event['size']:
+		event['size'] = 0
+	try:	
+		event['size'] = int(event['size'])
+		if event['size'] < 0:
+			error = "El nombre de places ha de ser un valor positiu."
+	except ValueError:
+		error = "El nombre de places ha de ser un valor enter."
+
+	print(event['size'])
+	return error
+
+def query_format(event, id=None):
+	event_tuple = (event['title'], event['summary'], event['description'],
+		event['date'], event['size'])
+	if id:
+		event_tuple = event_tuple + (id,)
+
+	return event_tuple
+		
+
+@bp.route('/create', methods=('GET', 'POST'))
+@admin_login_required
+def create():
+	event = None
 	if request.method == 'POST':
-		title = request.form['title']
-		summary = request.form['summary']
-		description = request.form['description']
-		date = request.form['date']
-		size = request.form['size']
-		error = None
-
-		if not title:
-			error = "Títol requerit."
-		elif not description:
-			error = "Descripció requerida."
-		elif not date:
-			error = "Data requerida."
-
+		event, error = get_event_from_form()
 		if error is not None:
 			flash(error)
 		else:
 			db = get_db()
-			if not id:
-				db.execute(
-					'INSERT INTO event (title, summary, description, date, '
-					'size) VALUES'
-					' (?, ?, ?, ?, ?)',
-					(title, summary, description, date, size)
-				)
-			else:
-				db.execute(
-					'UPDATE event SET title = ?, summary= ?, description = ?, '
-					'date = ?, size = ? WHERE id = ?',
-					(title, summary, description, date, size, id)
-				)
+			db.execute(
+				'INSERT INTO event (title, summary, description, date, '
+				'size) VALUES'
+				' (?, ?, ?, ?, ?)',
+				query_format(event),
+			)
+			db.commit()
+			return redirect(url_for('agenda.index'))
+
+	return render_template('agenda/form.html', event=event)
+
+@bp.route('/update/<int:id>', methods=('GET', 'POST'))
+@admin_login_required
+def update(id=None):
+	event = get_event(id)
+	
+	if request.method == 'POST':
+		event, error = get_event_from_form()
+		if error is not None:
+			flash(error)
+		else:
+			db = get_db()
+			db.execute(
+				'UPDATE event SET title = ?, summary= ?, description = ?, '
+				'date = ?, size = ? WHERE id = ?',
+				query_format(event, id)
+			)
 			db.commit()
 			return redirect(url_for('agenda.index'))
 

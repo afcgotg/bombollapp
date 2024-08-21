@@ -3,7 +3,7 @@
 {% block header %}
 	<h1>{% block title %}Agenda{% endblock %}</h1>
 	{% if g.admin %}
-		<a class="action" href="{{ url_for('agenda.update') }}">Nou</a>
+		<a class="action" href="{{ url_for('agenda.create') }}">Nou</a>
 	{% endif %}
 {% endblock %}
 
