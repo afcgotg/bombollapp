@@ -3,6 +3,14 @@ article.post {
 	position: relative;
 }
 
+div.post-top {
+	width: 100%;
+}
+
+div.post-top div.button {
+	text-align: center;
+}
+
 article.post header {
 	text-align: left;
 }

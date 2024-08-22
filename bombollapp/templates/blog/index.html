@@ -2,13 +2,17 @@
 
 {% block header %}
 	<h2 style="margin-bottom:50px">{% block title %}Blog{% endblock %}</h2>
-	{% if g.admin %}
-		<a href="{{ url_for('blog.create') }}">
-			<div class="button">+ Nou</div>
-		</a>
-	{% endif %}
 {% endblock %}
 
 {% block content %}
-	{% include 'blog/post.html' %}
+	{% if g.admin %}
+		<div class="post-top">
+			<a href="{{ url_for('blog.create') }}">
+				<div class="button">+ Nou</div>
+			</a>
+		</div>
+	{% endif %}
+	{% for post in posts %}
+		{% include 'blog/post.html' %}
+	{% endfor %}
 {% endblock %}
