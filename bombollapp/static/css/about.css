@@ -4,3 +4,18 @@ article.about {
 	margin-left: 150px;
 	margin-right: 150px;
 }
+
+article.about ul{
+	list-style: none;
+	padding-left: 30px;
+	padding-top: 30px;
+	padding-bottom: 40px;
+}
+
+article.about ul li{
+	padding-bottom: 5px;
+}
+
+article.about div.button {
+	text-align: center;
+}

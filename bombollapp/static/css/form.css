@@ -21,18 +21,24 @@ div.row {
 	width: 100%;
 }
 
+div.field{
+	display: flex;
+}
+
 div.field label{
 	margin-right: 10px;
 }
 
 div.field input{
 	margin-right: 20px;
+	border: 1px solid lightgrey;
 }
 
 div.row textarea {
 	width: 100%;
 	resize: none;
 	height: 60px;
+	border: 1px solid lightgrey;
 }
 
 div.actions {

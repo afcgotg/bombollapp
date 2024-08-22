@@ -1,11 +1,14 @@
 <article class="events">
-	{% if not id %}
-		<a href="{{ url_for('agenda.view', id=event['id']) }}">
-	{% endif %}
 	<div class="event">
 		{% if not id %}
 			<header>
+				{% if not id %}
+					<a href="{{ url_for('agenda.view', id=event['id']) }}">
+				{% endif %}
 		       	<h3>{{ event['title'] }}</h3>
+				{% if not id %}
+					</a>
+				{% endif %}
 		        {#
 		        <div class="about">{{ event['date'].strftime('%d/%m/%Y') }}</div>
 		        #}
@@ -16,7 +19,7 @@
 		{% if id %}
 			<p class="description">{{ event['description'] }}</p>
 		{% endif %}
-		<div class="actions">
+		<div class="event-places">
 			<p>{{ event['size']-event['current'] }} places disponibles.</p>
 		    {% if g.user %}
 			    {% if events_user and event['id'] in events_user %}
@@ -32,6 +35,12 @@
 		</div>
 
 	    {% if g.admin %}
+			<div class="actions">
+		        <form action="{{ url_for('agenda.delete', id=event['id']) }}" method="post">
+		    		<a class="button" href="{{ url_for('agenda.update', id=event['id']) }}">Modificar</a>
+	    	     	<input class="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja anul·lar el taller?');">
+		        </form>
+			</div>
 			{% if users_event %}
 			<h3>Participants</h3>
 			<ul>
@@ -40,13 +49,6 @@
 				{% endfor %}
 			</ul>
 			{% endif %}
-	    	<a class="action" href="{{ url_for('agenda.update', id=event['id']) }}">Modificar</a>
-	        <form action="{{ url_for('agenda.delete', id=event['id']) }}" method="post">
-    	     	<input class="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja anul·lar el taller?');">
-	        </form>
 		{% endif %}
 	</div>
-	{% if not id %}
-		</a>
-	{% endif %}
 </article>

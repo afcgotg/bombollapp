@@ -1,7 +1,7 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>{% block title %}Sobre nosaltres{% endblock %}</h1>
+	<h2>{% block title %}Sobre nosaltres{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
 			</div>
 			<div class="field">		
 				<label for="addres">Direcció</label>
-				<input name="addres" id="addres" style="width:60%" value="{{ info['addres'] }}">
+				<input name="addres" id="addres" style="width:400px" value="{{ info['addres'] }}">
 			</div>
 		</div>
 		<div class="actions">	

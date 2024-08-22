@@ -2,6 +2,7 @@
 @import url('form.css');
 
 @import url('event.css');
+@import url('about.css');
 
 :root {
 	--primary-color: rgb(3,150,140);
