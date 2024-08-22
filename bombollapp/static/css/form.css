@@ -39,23 +39,3 @@ div.actions {
 	display: flex;
 	justify-content: center;
 }
-
-div.actions input[type="submit"] {
-	color: white;
-	background-color: var(--primary-color);
-	border: none;
-	padding: 10px;
-}
-
-div.actions input[type="submit"]:hover {
-	background-color: white;
-	color: var(--primary-color);
-	padding: 10px;
-	border: 1px solid grey;
-}
-
-div.flash {
-	padding: 10px 0 10px;
-	color: red;
-	font-style: italic;	
-}
