@@ -11,7 +11,7 @@
 		<th>Preu</th>
 		<th>Stock</th>
 		<th>A granel</th>
-		<th>Accions</th>
+		<th></th>
 		{% for product in products %}
 			<tr>
 				<td>{{ product['reference'] }}</td>
@@ -25,14 +25,14 @@
 					<input type="checkbox" style="pointer-events: none;">
 				{% endif %}
 				</td>
-				<td>
-					<a href="{{ url_for('shop.update', id=product['id']) }}">Editar</a>
-					<form action="{{ url_for('shop.delete', id=product['id']) }}" method="post">
+				<td class="actions">
+					<a class="button" href="{{ url_for('shop.update', id=product['id']) }}">Editar</a>
+					<form style="width:auto" class="table-form" action="{{ url_for('shop.delete', id=product['id']) }}" method="post">
 						<input clas="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja eliminar aquest producte?');">
 					</form>
 				</td>
 			</tr>
 		{% endfor %}
 	</table>
-	<a href="{{ url_for('shop.create') }}">Afegir producte</a>
+	<a class="button" href="{{ url_for('shop.create') }}">Afegir producte</a>
 {% endblock %}
