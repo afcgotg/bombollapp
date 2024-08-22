@@ -1,0 +1,17 @@
+<article class="product">
+	<header>
+		<img src="{{ url_for('static', filename='img/bird.jpg') }}" alt="{{ product['name'] }} image }}">
+    	<h3><a href="{{ url_for('shop.view', id=product['id']) }}">{{ product['name'] }}</a></h3>
+    </header>
+	<div class="product-price">
+		<p style="font-style:italic;color:red" >
+	    {% if product['stock'] < 1 %}
+		   Sense stock
+	    {% endif %}
+		</p>
+	    <p style="font-size:20pt;font-weight:bold;text-align:right">
+	    	{{ product['price'] }} &euro;{% if product['in_bulk'] %}/kg{% endif %}
+	    </p>
+	</div>
+</article>
+

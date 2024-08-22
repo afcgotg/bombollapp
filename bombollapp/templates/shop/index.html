@@ -1,23 +1,15 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>{% block title %}Catàleg{% endblock %}</h1>
+	<h2>{% block title %}Catàleg{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
+	<div class="grid-container">
 	{% for product in products %}
-		<article class="product">
-			<header>
-				<h1><a href="{{ url_for('shop.view', id=product['id']) }}">{{ product['name'] }}</a></h1>
-			</header>
-			<p>
-				{{ product['price'] }} &euro;{% if product['in_bulk'] %}/L{% endif %}
-			</p>
-			{% if product['stock'] < 1 %}
-				<p>Producte fora d'stock.</p>
-			{% endif %}
-		</article>
+			{% include 'shop/product.html' %}
 	{% endfor %}
+	</div>
 {% endblock %}
 
 

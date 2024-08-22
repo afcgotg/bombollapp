@@ -24,7 +24,7 @@
 		    {% if g.user %}
 			    {% if events_user and event['id'] in events_user %}
 		    	   	<form action="{{ url_for('agenda.removeuser', event_id=event['id']) }}" method="post">
-		        	   	<input type="submit" value="Cancel·lar assistencia">
+		        	   	<input type="submit" value="Cancel·lar assistència">
 			        </form>
 		    	{% elif event['current'] < event['size'] %}
 		       		<form action="{{ url_for('agenda.adduser', event_id=event['id']) }}" method="post">

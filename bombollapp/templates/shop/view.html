@@ -1,18 +1,22 @@
 {% extends 'base_layout.html' %}
 {% block header %}
-	<h1>{% block title %}{{ product['name'] }}{% endblock %}</h1>
+	<h2>{% block title %}{{ product['name'] }}{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
-	<article>
-		<header>
-			<h1>{{ product['name'] }}</h1>
-			<p>Referència: {{ product['reference'] }}</p>
+	<article class="product-view">
+		<div class="img-container">
+			<img src="{{ url_for('static', filename='img/bird.jpg') }}" alt="{{ product['name'] }} image">
+		</div>
+		<div class="product-info">
+			<p style="font-style:italic;font-size:10pt">{{ product['reference'] }}</p>
 			<p>{{ product['description'] }}</p>
-			<p>{{ product['price'] }} &euro;{% if product['in_bulk'] %}/L{% endif %}</p>
-			{% if product['stock'] < 1 %}
-				<p>Sense stock.</p>
-			{% endif %}
-		</header>
+			<div class="product-price">
+				{% if product['stock'] < 1 %}
+					<p style="color:red" >Sense stock.</p>
+				{% endif %}
+				<p style="text-align:right;font-size:20pt;font-weight:bold">{{ product['price'] }} &euro;{% if product['in_bulk'] %}/L{% endif %}</p>
+			</div>
+		</div>
 	</article>
 {% endblock %}

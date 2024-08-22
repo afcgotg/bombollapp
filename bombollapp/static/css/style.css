@@ -4,6 +4,7 @@
 @import url('event.css');
 @import url('about.css');
 @import url('post.css');
+@import url('product.css');
 
 :root {
 	--primary-color: rgb(3,150,140);

@@ -52,6 +52,7 @@ nav.menu ul li a:visited {
 	color: var(--primary-color);
 	text-decoration: none;
 	padding: 10px;
+	border-radius: 5px;
 }
 
 nav.menu ul li a:hover {
