@@ -1,28 +1,52 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>{% block title %}Registrar-se{% endblock %}</h1>
+	<h2>{% block title %}Registre{% endblock %}</h2>
 {% endblock %}
 
 {% block content %}
-	<form method="POST">
-		<label for="email">Email</label>
-		<input name="email" id="email" required>
+	<form method="POST" class="register-form" style="width:600px">
+	<div style="margin-bottom:30px">
+		<div class="row" style="flex-direction:row-reverse">
+			<div class="field">
+				<label for="email">Email</label>
+				<input name="email" id="email" style="width:200px" required>
+			</div>
+		</div>
 
-		<label for="password">Contrasenya</label>
-		<input type="password" name="password" id="password" required>
+		<div class="row">
+			<div class="field">
+				<label for="password">Contrasenya</label>
+				<input type="password" name="password" id="password" style="width:200px"required>
+			</div>
+		</div>
+	</div>
+	<h3>Informació de contacte</h3>
+		<div class="row">
+			<div class="field">
+				<label for="first_name">Nom</label>
+				<input name="first_name" id="first_name" style="width:150px">
+			</div>
 
-		<label for="first_name">Nom</label>
-		<input name="first_name" id="first_name">
+			<div class="field">
+				<label for="last_name">Cognom(s)</label>
+				<input name="last_name" id="last_name" style="width:200px">
+			</div>
+		</div>
 
-		<label for="last_name">Cognom(s)</label>
-		<input name="last_name" id="last_name">
+		<div class="row">
+			<div class="field">
+				<label for="phone">Telèfon</label>
+				<input name="phone" id="phone">
+			</div>
+		</div>
 
-		<label for="phone">Telèfon</label>
-		<input name="phone" id="phone">
-
-		<label for="addres">Direcció</label>
-		<input name="addres" id="addres">
+		<div class="row">
+			<div class="field">
+				<label for="addres">Direcció</label>
+				<input name="addres" id="addres" style="width:300px">
+			</div>
+		</div>
 
 		<input type="submit" value="Registrar-se">
 	</form>
