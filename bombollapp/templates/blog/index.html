@@ -1,9 +1,11 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h1>{% block title %}Blog{% endblock %}</h1>
+	<h2 style="margin-bottom:50px">{% block title %}Blog{% endblock %}</h2>
 	{% if g.admin %}
-		<a class="action" href="{{ url_for('blog.create') }}">Nou</a>
+		<a href="{{ url_for('blog.create') }}">
+			<div class="button">+ Nou</div>
+		</a>
 	{% endif %}
 {% endblock %}
 

@@ -1,0 +1,35 @@
+article.post {
+	width: 100%;
+	position: relative;
+}
+
+article.post header {
+	text-align: left;
+}
+
+article.post header h3 {
+	font-size: 22pt;
+}
+
+article.post p.body {
+	margin-bottom: 30px;
+}
+
+article.post div.actions {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    display: flex;
+    justify-content: right;
+}
+
+article.post div.actions form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80px;
+}
+
+article.post div.actions a {
+	margin-right: 20px;	
+}
