@@ -13,17 +13,17 @@
 {% endblock %}
 
 {% block content %}
-	<form method="post">
+	<form method="post" class="event">
 		<div class="row">
-			<div class="field">
+			<div class="field" style="width:100%">
 			    <label for="title">Tìtol</label>
-			    <input name="title" id="title" style="width:350px" value="{{ event['title'] }}" required>
+			    <input name="title" id="title" value="{{ event['title'] }}" required>
 			</div>
 		</div>
 		<div class="row">
-			<div class="field" style="width:100%">
+			<div class="field">
 				<label for="summary">Resum</label>
-			    <input name="summary" id="summary" value="{{ event['summary'] }}" style="margin:0;width:734px">
+			    <input name="summary" id="summary" value="{{ event['summary'] }}">
 			</div>
 		</div>
 		<div class="row">
@@ -32,7 +32,7 @@
 		<div class="row">
 			<div class="field">
 		    	<label for="date">Data</label>
-		    	<input type="datetime-local" name="date" id="date" value="{{ event['date'] }}">
+		    	<input type="datetime-local" name="date" id="date" value="{{ event['date'] }}" style="width:175px">
 			</div>
 			<div class="field">
 		    	<label for="size">Places disponibles</label>

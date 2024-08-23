@@ -1,17 +1,13 @@
-section.content header h2 {
-	font-size: 24pt;
-}
-
-section.content header h3 {
-	font-size: 16pt;
-}
-
-section.content main form {
+form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 800px;
+}
+
+form.about, form.event {
+	width: 80%;
+	padding: 30px;
 }
 
 div.row {
@@ -22,23 +18,42 @@ div.row {
 }
 
 div.field{
-	display: flex;
+	display: grid;
+	grid-template-columns: auto 1fr;
+}
+
+div.field:not(:last-child) {
+	margin-right: 20px;
 }
 
 div.field label{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin-right: 10px;
 }
 
 div.field input{
-	margin-right: 20px;
+	padding-left: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 	border: 1px solid lightgrey;
+	border-radius: 5px;
 }
+
+div.field input:focus, div.row textarea:focus {
+	outline: none;
+    border: 1px solid var(--primary-color);
+}
+
 
 div.row textarea {
 	width: 100%;
 	resize: none;
 	height: 60px;
 	border: 1px solid lightgrey;
+	border-radius: 5px;
+	padding: 5px;
 }
 
 div.actions {

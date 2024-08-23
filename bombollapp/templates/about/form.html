@@ -5,9 +5,9 @@
 {% endblock %}
 
 {% block content %}
-	<form method="POST">
+	<form method="POST" class="about">
 		<div class="row">
-			<textarea name="description" id="description" style="height:200px">{{ info['description'] }}</textarea>
+			<textarea name="description" id="description" style="height:200px;padding:5px;">{{ info['description'] }}</textarea>
 		</div>
 		
 		<div class="row">
@@ -15,9 +15,9 @@
 				<label for="phone">Telèfon</label>
 				<input name="phone" id="phone" style="width:100px" value="{{ info['phone'] }}">
 			</div>
-			<div class="field">		
+			<div class="field" style="width:100%">		
 				<label for="addres">Direcció</label>
-				<input name="addres" id="addres" style="width:400px" value="{{ info['addres'] }}">
+				<input name="addres" id="addres" value="{{ info['addres'] }}">
 			</div>
 		</div>
 		<div class="actions">	

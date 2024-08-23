@@ -9,10 +9,6 @@
 		{% include 'agenda/event.html' %}
 	{% endfor %}
 	{% if g.admin %}
-		<div class="bottom-agenda">
-			<a href="{{ url_for('agenda.create') }}">
-				<div class="button">+ Nou</div>
-			</a>
-		</div>
+		<a class="button" style="width:100%" href="{{ url_for('agenda.create') }}">+ Nou</a>
 	{% endif %}
 {% endblock %}

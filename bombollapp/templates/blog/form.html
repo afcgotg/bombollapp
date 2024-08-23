@@ -13,15 +13,15 @@
 {% endblock %}
 
 {% block content %}
-	<form method="post">
+	<form method="post" class="post">
 		<div class="row">
 			<div class="field">
 			    <label for="title">Títol</label>
-			    <input name="title" id="title" value="{{ post['title'] }}" style="width:600px" required>
+			    <input name="title" id="title" value="{{ post['title'] }}" required>
 			</div>
 		</div>
 		<div class="row">	
-		    <textarea name="body" id="body">{{ post['body'] }}</textarea>
+		    <textarea style="padding:5px" name="body" id="body">{{ post['body'] }}</textarea>
 		</div>
 		<div class="actions">
 		    {% if post %}

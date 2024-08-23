@@ -1,9 +1,6 @@
-article.events {
+article.event {
 	width: 100%;
 	margin-bottom: 20px;
-}
-
-article.events div.event{
 	background-color: rgb(245,245,245);
 	padding: 20px;
 	margin-left: 150px;
@@ -12,69 +9,64 @@ article.events div.event{
 	border-radius: 10px;
 }
 
-article.events header {
+article.event header {
 	text-align: left;
 	margin: 0;
 	padding: 0 0 20px;;
 }
 
-article.events header h3 {
+article.event header h3 {
 	font-size: 18pt;
 }
 
-div.about {
+article.event header div.date {
 	font-size: 12pt;
 }
 
-p.summary {
+article.event p.summary {
 	font-style: italic;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 p.description {
 	margin-bottom: 10px;
 }
 
-div.event div.event-places {
+article.event div.places {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 10px;
 }
 
-div.event div.event-places form {
+article.event div.places form {
 	flex-direction: row;
 	justify-content: right;
 }
 
-div.event-places form input {
+article.places form input {
 	margin-left: 10px;
 }
 
-div.event-places p {
+article.places p {
 	width: 400px;
 }
 
-div.event div.actions {
+article.event div.actions {
 	position: absolute;
 	top: 10px;
 	right: 10px;
 	display: flex;
 	justify-content: right;
+	gap: 10px;
 }
 
-div.event div.actions form {
+article.event div.actions form {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-	width: 200px;
 }
 
-div.bottom-agenda {
-	width: 100%;
-	padding-left: 150px;
-	padding-right: 150px;
-}
-
-div.bottom-agenda div.button {
-	text-align: center;
+article.event div.participants ul {
+	margin-top: 5px;
+	margin-left: 25px;
 }

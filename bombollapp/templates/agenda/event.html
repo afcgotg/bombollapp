@@ -1,5 +1,4 @@
-<article class="events">
-	<div class="event">
+<article class="event">
 		{% if not id %}
 			<header>
 				{% if not id %}
@@ -10,18 +9,23 @@
 					</a>
 				{% endif %}
 		        {#
-		        <div class="about">{{ event['date'].strftime('%d/%m/%Y') }}</div>
+		        <div class="date">{{ event['date'].strftime('%d/%m/%Y') }}</div>
 		        #}
-		        <div class="about">{{ event['date'] }}</div>
+		        <div class="date">{{ event['date'] }}</div>
 		    </header>
 		{% endif %}
+		{% if not id %}
 	   	<p class="summary">{{ event['summary'] }}</p>
-		{% if id %}
+		{% else %}
+		    {#
+		    <div class="date">{{ event['date'].strftime('%d/%m/%Y') }}</div>
+		    #}
+		    <div class="date">{{ event['date'] }}</div>
 			<p class="description">{{ event['description'] }}</p>
 		{% endif %}
-		<div class="event-places">
+		<div class="places">
 			<p>{{ event['size']-event['current'] }} places disponibles.</p>
-		    {% if g.user %}
+		    {% if not g.admin %}
 			    {% if events_user and event['id'] in events_user %}
 		    	   	<form action="{{ url_for('agenda.removeuser', event_id=event['id']) }}" method="post">
 		        	   	<input type="submit" value="Cancel·lar assistència">
@@ -36,19 +40,20 @@
 
 	    {% if g.admin %}
 			<div class="actions">
+				<a class="button" href="{{ url_for('agenda.update', id=event['id']) }}">Modificar</a>
 		        <form action="{{ url_for('agenda.delete', id=event['id']) }}" method="post">
-		    		<a class="button" href="{{ url_for('agenda.update', id=event['id']) }}">Modificar</a>
 	    	     	<input class="danger" type="submit" value="Eliminar" onclick="return confirm('Segur que desitja anul·lar el taller?');">
 		        </form>
 			</div>
 			{% if users_event %}
-			<h3>Participants</h3>
-			<ul>
-				{% for usr in users_event %}
-					<li>{{ usr['first_name'] }} {{ usr['last_name'] }}
-				{% endfor %}
-			</ul>
+			<div class="participants">
+				<h3>Participants</h3>
+				<ul>
+					{% for usr in users_event %}
+						<li>{{ usr['first_name'] }} {{ usr['last_name'] }}
+					{% endfor %}
+				</ul>
+			</div>
 			{% endif %}
 		{% endif %}
-	</div>
 </article>

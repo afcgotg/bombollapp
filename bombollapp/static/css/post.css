@@ -1,6 +1,10 @@
 article.post {
 	width: 100%;
 	position: relative;
+	margin: 10px;
+	background-color: var(--background-color);
+	border-radius: 10px;
+	padding: 20px;
 }
 
 div.post-top {
@@ -13,31 +17,35 @@ div.post-top div.button {
 
 article.post header {
 	text-align: left;
+	margin-bottom: 20px;
 }
 
 article.post header h3 {
 	font-size: 22pt;
+	margin-bottom: 5px;
 }
 
 article.post p.body {
-	margin-bottom: 30px;
+	margin-bottom: 15px;
 }
 
 article.post div.actions {
     position: absolute;
-    top: 30px;
+    top: 10px;
     right: 10px;
     display: flex;
     justify-content: right;
+	gap: 10px;
 }
 
 article.post div.actions form {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 80px;
 }
 
-article.post div.actions a {
-	margin-right: 20px;	
+form.post {
+	width:100%;
+	padding: 20px;
+	border: 1px solid lightgrey;
+	border-radius: 10px;
 }

@@ -6,11 +6,7 @@
 
 {% block content %}
 	{% if g.admin %}
-		<div class="post-top">
-			<a href="{{ url_for('blog.create') }}">
-				<div class="button">+ Nou</div>
-			</a>
-		</div>
+		<a class="button" style="width:100%;margin-bottom:5px;" href="{{ url_for('blog.create') }}">+ Nou</a>
 	{% endif %}
 	{% for post in posts %}
 		{% include 'blog/post.html' %}
