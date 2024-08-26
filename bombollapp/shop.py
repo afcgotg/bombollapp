@@ -1,11 +1,14 @@
+import os
+
 from flask import(
 	Blueprint, flash, g, redirect, render_template, request, url_for
 )
 
+from werkzeug.utils import secure_filename
+
 from .admin import admin_login_required
 from .auth import user_login_required
 from .db import get_db
-
 
 bp = Blueprint('shop', __name__, url_prefix='/shop')
 
@@ -108,6 +111,12 @@ def create():
 	
 	return render_template('shop/form.html', product=product)
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @bp.route('/update/<int:id>', methods=('GET', 'POST'))
 @admin_login_required
 def update(id=None):
@@ -125,9 +134,16 @@ def update(id=None):
 				query_format(product, id)
 			)
 			db.commit()
+			files = request.files.getlist('images')
+			for file in files:
+				if file and allowed_file(file.filename):
+					filename = secure_filename(file.filename)
+					folder = os.getcwd() + '/bombollapp/static/img/shop/' + str(id)
+					os.makedirs(folder, exist_ok=True)
+					file.save(os.path.join(folder, filename))
 			return redirect(url_for('shop.panel'))
 	
-	return render_template('shop/form.html', product=product)
+	return render_template('shop/form.html', product=product, id=id)
 
 
 @bp.route('/delete/<int:id>', methods=('POST',))

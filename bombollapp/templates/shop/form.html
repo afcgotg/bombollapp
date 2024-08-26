@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-	<form method="post">
+	<form method="post" enctype=multipart/form-data>
 		<div class="row">
 			<div class="field">
 				<label for="reference">Referència</label>
@@ -38,6 +38,14 @@
 				<input name="stock" id="stock" value="{{ product['stock'] }}" style="width:50px">
 			</div>
 		</div>
+		{% if id %}
+			<div class="row">
+				<div class="field">
+					<label for="images">Imatges</label>
+					<input name="images" id="images" type="file" multiple>
+				</div>
+			</div>
+		{% endif %}
 		{% for message in get_flashed_messages() %}
 			<div class="flash">{{ message }}</div>
 		{% endfor %}

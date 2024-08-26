@@ -4,6 +4,7 @@ article.about {
 	margin-left: 150px;
 	margin-right: 150px;
 	padding: 30px;
+	width: 100%;
 }
 
 article.about ul{
@@ -19,4 +20,8 @@ article.about ul li{
 article.about div.button {
 	margin-top: 15px;
 	text-align: center;
+}
+
+article.about p.body{
+	width: 100%;
 }

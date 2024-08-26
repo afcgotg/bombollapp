@@ -80,3 +80,10 @@ CREATE TABLE product_label(
 	FOREIGN KEY (product_id) REFERENCES product(id) ON DELETE CASCADE,
 	FOREIGN KEY (label_id) REFERENCES label(id) ON DELETE CASCADE
 );
+
+DROP TABLE IF EXISTS product_image;
+CREATE TABLE product_image(
+	product_id INTEGER,
+	image TEXT,
+	FOREIGN KEY (product_id) REFERENCE product(id) ON DELETE CASCADE
+);

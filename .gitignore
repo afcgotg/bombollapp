@@ -1,5 +1,6 @@
 instance/
 tests/
+bombollapp/static/img/shop/
 
 *.swp
 Pipfile.lock

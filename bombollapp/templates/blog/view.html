@@ -1,0 +1,7 @@
+{% extends 'base_layout.html' %}
+
+{% block title %}{{ post['title'] }}{% endblock %}
+
+{% block content %}
+	{% include 'blog/post.html' %}	
+{% endblock %}

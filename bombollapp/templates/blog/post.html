@@ -1,9 +1,18 @@
 <article class="post">
 	<header>
+		{% if not id %}
+			<a href="{{ url_for('blog.view', id=post['id']) }}">
+		{% endif %}
 		<h3>{{ post['title'] }}</h3>
+		{% if not id %}
+			</a>
+		{% endif %}
 		<div class="about">{{ post['created'].strftime('%d/%m/%Y') }}</div>
 	</header>
-	<p class="body">{{ post['body'] }}</p>
+
+	{% if id %}
+		<p class="body text-format">{{ post['body'] }}</p>
+	{% endif %}
 	{% if g.admin %}
 		<div class="actions">
 			<a class="button" href="{{ url_for('blog.update', id=post['id']) }}">Editar</a>

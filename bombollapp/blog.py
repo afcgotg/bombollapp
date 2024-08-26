@@ -96,11 +96,15 @@ def get_post(id):
 
 	return post
 
+@bp.route('/view/<int:id>')
+def view(id):
+	post = get_post(id);
+	return render_template('blog/view.html', post=post, id=id)
+
 
 @bp.route('/delete/<int:id>', methods=('POST',))
 @admin_login_required
 def delete(id):
-	get_post(id)
 	db = get_db()
 	db.execute('DELETE FROM post WHERE id = ?', (id,))
 	db.commit()
