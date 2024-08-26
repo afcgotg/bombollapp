@@ -7,6 +7,7 @@
 @import url('product.css');
 @import url('panel.css');
 @import url('auth.css');
+@import url('carousel.css');
 
 :root {
 	--primary-color: rgb(3,150,140);

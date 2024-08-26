@@ -12,6 +12,8 @@
 	    <p style="font-size:20pt;font-weight:bold;text-align:right">
 	    	{{ product['price'] }} &euro;{% if product['in_bulk'] %}/kg{% endif %}
 	    </p>
+		{% for img in images[product['id']] %}
+		{% endfor %}
 	</div>
 </article>
 

@@ -12,10 +12,15 @@ from .db import get_db
 
 bp = Blueprint('shop', __name__, url_prefix='/shop')
 
+SHOP_IMAGES = os.getcwd() + '/bombollapp/static/img/shop/'
+
 @bp.route('/')
 def index():
 	products = get_products()
-	return render_template('shop/index.html', products=products)
+	images = {}
+	for product in products:
+		images[product['id']] = get_product_images(product['id'])
+	return render_template('shop/index.html', products=products, images=images)
 
 
 def get_products():
@@ -24,7 +29,15 @@ def get_products():
 		'SELECT * FROM product'
 	).fetchall()
 	return products
+
+def get_product_images(id):
+	folder = SHOP_IMAGES + str(id)
+	if os.path.isdir(folder):
+		images = os.listdir(folder)
+		images = ['img/shop/'+str(id)+'/'+image for image in images]
+		return images
 	
+	return ['img/shop/bubbles.jpg']
 
 @bp.route('/view/<int:id>')
 def view(id):
@@ -33,7 +46,8 @@ def view(id):
 		'SELECT * FROM product WHERE id = ?',
 		(id,)
 	).fetchone()
-	return render_template('shop/view.html', product=product)
+	images =  get_product_images(id)
+	return render_template('shop/view.html', product=product, images=images)
 
 @bp.route('/panel')
 def panel():
@@ -138,7 +152,7 @@ def update(id=None):
 			for file in files:
 				if file and allowed_file(file.filename):
 					filename = secure_filename(file.filename)
-					folder = os.getcwd() + '/bombollapp/static/img/shop/' + str(id)
+					folder = SHOP_IMAGES + str(id)
 					os.makedirs(folder, exist_ok=True)
 					file.save(os.path.join(folder, filename))
 			return redirect(url_for('shop.panel'))

@@ -1,0 +1,17 @@
+<script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+<div class="slideshow-container">
+	{% for img in images %}
+		<div class="slide fade">
+			<img class="image" src="{{ url_for('static', filename=img) }}">
+		</div>
+	{% endfor %}
+	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+	<a class="next" onclick="plusSlides(1)">&#10095;</a>
+	
+	<div style="text-align:center">
+		{% for i in range(0, images | length) %}
+			<span class="dot" onclick="currentSlide({{ i }})"></span>
+		{% endfor %}
+	</div>
+</div>
+
