@@ -29,14 +29,14 @@ article.event p.summary {
 }
 
 p.description {
-	margin-bottom: 10px;
+	margin: 20px 0 30px 0;
 }
 
 article.event div.places {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-bottom: 10px;
+	margin-bottom: 25px;
 }
 
 article.event div.places form {
@@ -66,7 +66,15 @@ article.event div.actions form {
 	flex-direction: row;
 }
 
+article.event div.participants h3{
+	margin-bottom: 10px;
+}
+
 article.event div.participants ul {
 	margin-top: 5px;
-	margin-left: 25px;
+	margin-left: 30px;
+}
+
+article.event div.participants ul li{
+	margin: 5px 0 5px 0;
 }
