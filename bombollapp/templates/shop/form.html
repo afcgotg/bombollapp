@@ -1,7 +1,15 @@
 {% extends 'base_layout.html' %}
 
 {% block header %}
-	<h3>{% block title %}Afegir producte{% endblock %}</h3>
+	<h2>
+		{% block title %}
+			{% if product %}
+				Editar producte
+			{% else %}
+				Afegir producte
+			{% endif %}
+		{% endblock %}
+	</h2>
 {% endblock %}
 
 {% block content %}
@@ -39,12 +47,7 @@
 			</div>
 		</div>
 		{% if id %}
-			<div class="row">
-				<div class="field">
-					<label for="images">Imatges</label>
-					<input name="images" id="images" type="file" multiple>
-				</div>
-			</div>
+			{% include 'shop/image-manager.html' %}
 		{% endif %}
 		{% for message in get_flashed_messages() %}
 			<div class="flash">{{ message }}</div>

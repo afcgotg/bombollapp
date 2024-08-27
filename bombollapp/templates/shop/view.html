@@ -5,7 +5,9 @@
 
 {% block content %}
 	<article class="product-view">
-		{% include 'shop/carousel.html' %}
+		<div style="width:500px;height:500px">
+			{% include 'shop/slideshow.html' %}
+		</div>
 <!--		<div class="img-container">
 			<img src="{{ url_for('static', filename='img/bird.jpg') }}" alt="{{ product['name'] }} image">
 		</div>

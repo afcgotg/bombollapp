@@ -1,12 +1,12 @@
 .grid-container {
+	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(3, auto);
-	row-gap: 20px;
-	column-gap: 30px;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
 }
 
 article.product {
-	border: 1px solid, lightgrey;
+	border: 1px solid lightgrey;
 	border-radius: 10px;
 	padding: 30px;
 }
@@ -14,6 +14,14 @@ article.product {
 article.product header{
 	padding: 0;
 	margin-bottom: 20px;
+}
+
+article.product header img {
+	height: 350px;
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
+	margin-bottom: 15px;
 }
 
 article.product header h3 {
@@ -39,15 +47,15 @@ div.product-price p {
 }
 
 article.product-view {
-	width: 80%;
+	width: 100%;
 	display: flex;
-	direction: row;
+	flex-direction: row;
 	justify-content: center;
+	gap: 30px;
 }
 
 article.product-view div.product-info {
-	margin-left: 20px;
-	width:50%;
+	width: 100%
 }
 
 article.product-view p {

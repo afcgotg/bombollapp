@@ -1,0 +1,14 @@
+<div class="image-manager">
+	<div class="row">
+    	<div class="field">
+        	<label for="images">Imatges</label>
+            <input name="images" id="images" type="file" multiple>
+        </div>
+    </div>
+	{% for img in images %}
+		<div class="image-container">
+			<img src="">
+			<span class="delete-image">x</span>
+		</div>
+	{% endfor %}
+</div>

@@ -1,16 +1,20 @@
 {% extends 'base_layout.html' %}
 
-{% block header %}
-	<h1>{% block title %}Iniciar sessió com administrador{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-	<form method="POST">
-		<label for="username">Nom d'usuari</label>
-		<input name="username" id="username" required>
+	<form method="POST" class="login-form" style="width:auto">
+		<div class="row">
+			<div class="field" style="width:100%">
+				<label for="username">Administrador</label>
+				<input name="username" id="username" style="width:200px" required>
+			</div>
+		</div>
 
-		<label for="password">Contrasenya</label>
-		<input type="password" name="password" id="password" required>
+		<div class="row">
+			<div class="field" style="width:100%;display:flex;justify-content:flex-end">
+				<label for="password">Contrasenya</label>
+				<input type="password" name="password" id="password" style="width:200px" required>
+			</div>
+		</div>
 
 		<input type="submit" value="Iniciar sessió">
 	</form>

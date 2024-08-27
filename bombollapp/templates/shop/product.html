@@ -1,7 +1,7 @@
 <article class="product">
-	<header>
-		<img src="{{ url_for('static', filename='img/bird.jpg') }}" alt="{{ product['name'] }} image }}">
-    	<h3><a href="{{ url_for('shop.view', id=product['id']) }}">{{ product['name'] }}</a></h3>
+	<header onclick="location.href='{{ url_for('shop.view', id=product['id']) }}';" style="cursor:pointer">
+		<img src="{{ url_for('static', filename=front_image[product['id']]) }}" alt="{{ product['name'] }} image }}">
+    	<h3>{{ product['name'] }}</h3>
     </header>
 	<div class="product-price">
 		<p style="font-style:italic;color:red" >
@@ -12,8 +12,5 @@
 	    <p style="font-size:20pt;font-weight:bold;text-align:right">
 	    	{{ product['price'] }} &euro;{% if product['in_bulk'] %}/kg{% endif %}
 	    </p>
-		{% for img in images[product['id']] %}
-		{% endfor %}
 	</div>
 </article>
-

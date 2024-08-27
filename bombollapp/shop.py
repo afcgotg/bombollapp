@@ -17,10 +17,11 @@ SHOP_IMAGES = os.getcwd() + '/bombollapp/static/img/shop/'
 @bp.route('/')
 def index():
 	products = get_products()
-	images = {}
+	front_image = {}
 	for product in products:
-		images[product['id']] = get_product_images(product['id'])
-	return render_template('shop/index.html', products=products, images=images)
+		front_image[product['id']] = get_product_images(product['id'])[0]
+	return render_template('shop/index.html', products=products,
+		front_image=front_image)
 
 
 def get_products():
@@ -35,9 +36,10 @@ def get_product_images(id):
 	if os.path.isdir(folder):
 		images = os.listdir(folder)
 		images = ['img/shop/'+str(id)+'/'+image for image in images]
+		images.sort()
 		return images
 	
-	return ['img/shop/bubbles.jpg']
+	return ['img/bubbles.jpg']
 
 @bp.route('/view/<int:id>')
 def view(id):
