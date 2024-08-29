@@ -21,7 +21,7 @@
 		    <div class="date">{{ event['date'].strftime('%d/%m/%Y') }}</div>
 		    #}
 		    <div class="date">{{ event['date'] }}</div>
-			<p class="description">{{ event['description'] }}</p>
+			<p class="description text-format">{{ event['description'] }}</p>
 		{% endif %}
 		<div class="places">
 			<p>{{ event['size']-event['current'] }} places disponibles.</p>

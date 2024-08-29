@@ -1,6 +1,10 @@
 <article class="product">
 	<header onclick="location.href='{{ url_for('shop.view', id=product['id']) }}';" style="cursor:pointer">
-		<img src="{{ url_for('static', filename=front_image[product['id']]) }}" alt="{{ product['name'] }} image }}">
+		{% if front_image[product['id']] %}
+			<img src="{{ url_for('shop.show_image', id=product['id'], filename=front_image[product['id']]) }}" alt="{{ product['name'] }} image">
+		{% else %}
+			<img src="{{ url_for('static', filename='img/bubbles.jpg') }}" alt="{{ product['name'] }} image">
+		{% endif %}
     	<h3>{{ product['name'] }}</h3>
     </header>
 	<div class="product-price">

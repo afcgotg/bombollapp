@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<textarea name="description" id="description">{{ product['description'] }}</textarea>
+			<textarea name="description" style="height:300px" id="description">{{ product['description'] }}</textarea>
 		</div>
 		
 		<div class="row">
@@ -46,9 +46,7 @@
 				<input name="stock" id="stock" value="{{ product['stock'] }}" style="width:50px">
 			</div>
 		</div>
-		{% if id %}
-			{% include 'shop/image-manager.html' %}
-		{% endif %}
+		{% include 'shop/image-manager.html' %}
 		{% for message in get_flashed_messages() %}
 			<div class="flash">{{ message }}</div>
 		{% endfor %}

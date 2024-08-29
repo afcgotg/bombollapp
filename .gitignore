@@ -1,6 +1,9 @@
+dist/
 instance/
 tests/
-bombollapp/static/img/shop/
+uploads/
+
+Pipfile.lock
+pyproject.toml
 
 *.swp
-Pipfile.lock

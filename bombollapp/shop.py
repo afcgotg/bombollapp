@@ -1,7 +1,8 @@
 import os
 
 from flask import(
-	Blueprint, flash, g, redirect, render_template, request, url_for
+	Blueprint, flash, g, redirect, render_template, request, url_for,
+	send_from_directory
 )
 
 from werkzeug.utils import secure_filename
@@ -12,14 +13,18 @@ from .db import get_db
 
 bp = Blueprint('shop', __name__, url_prefix='/shop')
 
-SHOP_IMAGES = os.getcwd() + '/bombollapp/static/img/shop/'
+SHOP_IMAGES_FOLDER = os.getcwd() + '/uploads/shop/img/'
 
 @bp.route('/')
 def index():
 	products = get_products()
 	front_image = {}
 	for product in products:
-		front_image[product['id']] = get_product_images(product['id'])[0]
+		images = get_product_images(product['id'])
+		if len(images) > 0:
+			front_image[product['id']] = get_product_images(product['id'])[0]
+		else:
+			front_image[product['id']] = None
 	return render_template('shop/index.html', products=products,
 		front_image=front_image)
 
@@ -32,14 +37,16 @@ def get_products():
 	return products
 
 def get_product_images(id):
-	folder = SHOP_IMAGES + str(id)
+	folder = SHOP_IMAGES_FOLDER + str(id)
 	if os.path.isdir(folder):
 		images = os.listdir(folder)
-		images = ['img/shop/'+str(id)+'/'+image for image in images]
 		images.sort()
 		return images
-	
-	return ['img/bubbles.jpg']
+	return []
+
+@bp.route('/img/<id>/<filename>')
+def show_image(id, filename):
+	return send_from_directory(SHOP_IMAGES_FOLDER + str(id) + '/', filename)
 
 @bp.route('/view/<int:id>')
 def view(id):
@@ -123,8 +130,18 @@ def create():
 				query_format(product)
 			)
 			db.commit()
+			last_product = db.execute(
+				'SELECT MAX(id) as id FROM product'
+			).fetchone()
+			files = request.files.getlist('images')
+			for file in files:
+				if file and allowed_file(file.filename):
+					filename = secure_filename(file.filename)
+					folder = SHOP_IMAGES_FOLDER + str(last_product['id'])
+					os.makedirs(folder, exist_ok=True)
+					file.save(os.path.join(folder, filename))
 			return redirect(url_for('shop.panel'))
-	
+
 	return render_template('shop/form.html', product=product)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -154,7 +171,7 @@ def update(id=None):
 			for file in files:
 				if file and allowed_file(file.filename):
 					filename = secure_filename(file.filename)
-					folder = SHOP_IMAGES + str(id)
+					folder = SHOP_IMAGES_FOLDER + str(id)
 					os.makedirs(folder, exist_ok=True)
 					file.save(os.path.join(folder, filename))
 			return redirect(url_for('shop.panel'))

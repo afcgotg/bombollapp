@@ -1,17 +1,23 @@
 <div class="slideshow-container">
-	{% for img in images %}
-		<div class="slide fade">
-			<img class="image" src="{{ url_for('static', filename=img) }}">
-		</div>
-	{% endfor %}
-	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-	<a class="next" onclick="plusSlides(1)">&#10095;</a>
-	
-	<div class="dots-container" style="text-align:center">
-		{% for i in range(0, images | length) %}
-			<span class="dot" onclick="currentSlide({{ i }})"></span>
+	{% if images | length == 0 %}
+			<div class="slide fade" style="display:block">
+				<img class="image" src="{{ url_for('static', filename='img/bubbles.jpg') }}">
+			</div>
+	{% else %}
+		{% for img in images %}
+			<div class="slide fade">
+				<img class="image" src="{{ url_for('shop.show_image', id=product['id'], filename=img) }}">
+			</div>
 		{% endfor %}
-	</div>
-	<script src="{{ url_for('static', filename='js/slideshow.js') }}"></script>
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
+	
+		<div class="dots-container" style="text-align:center">
+			{% for i in range(0, images | length) %}
+				<span class="dot" onclick="currentSlide({{ i }})"></span>
+			{% endfor %}
+		</div>
+		<script src="{{ url_for('static', filename='js/slideshow.js') }}"></script>
+	{% endif %}
 </div>
 
